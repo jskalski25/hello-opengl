@@ -1,4 +1,5 @@
-#include "Includes.h"
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
 #include <iostream>
 
 const float vertices[] = {
@@ -25,22 +26,23 @@ int main(void) {
     const int screen_width = 800;
     const int screen_height = 600;
 
-    GLFWwindow* window;
-
-    if (!glfwInit())
-        return -1;
+    if (!glfwInit()) {
+        return -1; 
+    }
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    window = glfwCreateWindow(screen_width, screen_height, "Hello World", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(screen_width, screen_height, "Hello World", nullptr, nullptr);
     if (!window) {
         glfwTerminate();
         return -1;
     }
 
     glfwMakeContextCurrent(window);
+
+    glewExperimental = GL_TRUE;
     glewInit();
 
     std::cout << glGetString(GL_VERSION) << "\n";
